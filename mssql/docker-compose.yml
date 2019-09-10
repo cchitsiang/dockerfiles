@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  db:
+    container_name: mssql
+    image: mcr.microsoft.com/mssql/server
+    restart: unless-stopped
+    volumes:
+      - ./.data/mssql:/var/opt/mssql
+      - /var/opt/mssql/data
+    ports:
+      - 1433:1433
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Password1!
+      MSSQL_PID: express
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-PPassword1!", "-Q", "select 1"]
+      interval: 5s
+      retries: 2
