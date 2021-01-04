@@ -1,0 +1,1 @@
+CREATE DATABASE reguna OWNER postgres
