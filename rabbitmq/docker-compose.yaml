@@ -1,0 +1,19 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3.7.5-management
+    restart: always
+    hostname: app-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@app-rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 6085e2412b6fa88647488c6a81c0cea0
+      RABBITMQ_DEFAULT_USER: rabbitmq
+      RABBITMQ_DEFAULT_PASS: rabbitmq
+      RABBITMQ_DEFAULT_VHOST: /
+volumes:
+  rabbitmq:
+    driver: local
