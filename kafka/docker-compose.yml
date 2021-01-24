@@ -1,0 +1,44 @@
+version: "3.1"
+
+# Responsible for bringing up the following services:
+# - Kafka
+# - Schema Registry
+# - Kafka REST Proxy
+# - Kafka Connect
+# - ZooKeeper
+# - Landoop UI
+#
+# https://hub.docker.com/r/landoop/fast-data-dev/
+# Make sure to docker pull landoop/fast-data-dev:latest before running docker-compose
+# Allocate at-least 4GB of memory to run this container
+
+# Start-up
+# docker-compose -f fast-data-docker-compose.yaml up
+
+# Clean-up
+# docker-compose -f fast-data-docker-compose.yaml down --volume
+services:
+  fast-data:
+    container_name: kafka
+    image: landoop/fast-data-dev:latest
+    ports:
+      - "9092:9092" # Kafka broker
+      - "8081:8081" # Schema Registry
+      - "8082:8082" # Kafka REST Proxy
+      - "8083:8083" # Kafka Connect
+      - "2182:2181" # Zookeeper
+      - "3030:3030" # Landoop Development Environment UI
+    environment:
+      - "ADV_HOST=kafka" # Allow services in container to be remotely accessible (so the host can access it)
+      - "SAMPLEDATA=0" # Do not create example topics
+      - "FORWARDLOGS=0" # Disable the 5 file source connectors that automatically bring logs into Kafka topics
+      - "RUNTESTS=0" # Don't run Coyote integration tests on container startup (enable if debugging)
+      - "AWS_ACCESS_KEY_ID=xxx"
+      - "AWS_SECRET_ACCESS_KEY=xxx"
+      - "DISABLE=azure-documentdb,blockchain,bloomberg,cassandra,coap,druid,elastic,elastic5,ftp,hazelcast,hbase,influxdb,jms,kudu,mongodb,mqtt,redis,rethink,voltdb,yahoo,hdfs,jdbc,elasticsearch,twitter"
+      - "CONNECT_HEAP=512m"
+    networks:
+      - fast-data
+
+networks:
+  fast-data:

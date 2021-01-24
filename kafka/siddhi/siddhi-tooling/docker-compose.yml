@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+  siddhi-tooling:
+    container_name: siddhi-tooling
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "9390:9390"
+      - "9743:9743"
+    networks:
+      - fast-data
+
+networks:
+  fast-data:
