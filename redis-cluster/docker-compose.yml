@@ -1,0 +1,16 @@
+version: '2'
+services:
+  redis-cluster:
+    restart: always
+    environment:
+     IP: ${REDIS_CLUSTER_IP}
+     SENTINEL: 'true'
+     STANDALONE: ${REDIS_USE_STANDALONE}
+    build:
+      context: .
+      args:
+        redis_version: '5.0.5'
+    hostname: server
+    ports:
+      - '7000-7050:7000-7050'
+      - '5000-5010:5000-5010'
