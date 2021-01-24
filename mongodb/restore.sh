@@ -1,0 +1,1 @@
+docker-compose exec -T mongo sh -c 'mongorestore --archive' < ./dump/latest.dump
