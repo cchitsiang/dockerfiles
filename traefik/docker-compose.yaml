@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+    traefik:
+        container_name: traefik
+        image: traefik:v2.0
+        env_file: 
+            - .env
+        command:
+            - "--api.insecure=true"
+            - "--providers.docker=true"
+            - "--entryPoints.web.address=:80"
+            - "--entryPoints.websecure.address=:443"
+            - "--certificatesResolvers.le.acme.email=$EMAIL"
+            - "--certificatesResolvers.le.acme.storage=acme.json"
+            - "--certificatesResolvers.le.acme.tlsChallenge=true"
+            - "--certificatesResolvers.le.acme.httpChallenge=true"
+            - "--certificatesResolvers.le.acme.httpChallenge.entryPoint=web"
+        restart: always
+        ports:
+            - 80:80
+            - 443:443
+            - 8080:8080
+        networks:
+            - web
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./acme.json:/acme.json
+        labels:
+
+            # Redirect all HTTP to HTTPS permanently
+            - traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)
+            - traefik.http.routers.http_catchall.entrypoints=web
+            - traefik.http.routers.http_catchall.middlewares=https_redirect
+            - traefik.http.middlewares.https_redirect.redirectscheme.scheme=https
+            - traefik.http.middlewares.https_redirect.redirectscheme.permanent=true
+
+    whoami:
+        image: "containous/whoami"
+        container_name: "simple-service"
+        env_file: 
+            - .env
+        restart: always
+        networks:
+            - web
+        labels:
+          - traefik.http.routers.whoami.rule=Host(`$DOMAIN_NAME`)
+          - traefik.http.routers.whoami.tls=true
+          - traefik.http.routers.whoami.tls.certresolver=le
+
+networks:
+    web:
+        external: true
