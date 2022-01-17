@@ -1,6 +1,7 @@
 version: '3.3'
 services:
   mysql:
+    platform: linux/amd64
     container_name: mysql
     image: mysql:8.0
     command: ["mysqld", "--default-authentication-plugin=mysql_native_password"]

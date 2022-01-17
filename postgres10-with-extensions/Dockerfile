@@ -1,10 +1,12 @@
 FROM postgres:10.5
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Simple Chinese Word Segmentation
 # from: https://github.com/Necolo/postgres-zhparser-docker
 # zhparser
 ENV SCWS_VERSION 1.2.3
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates wget \
+RUN apt-get -q update && apt-get install -y --no-install-recommends build-essential ca-certificates wget \
     && apt-get install -y tar make gcc \
     && apt-get install -y postgresql-server-dev-$PG_MAJOR \
     && mkdir build \
@@ -22,7 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 # postgis
 # from: https://github.com/postgis/docker-postgis/blob/master/10-3.1/Dockerfile
 ENV POSTGIS_MAJOR 3
-ENV POSTGIS_VERSION 3.1.4+dfsg-1.pgdg90+1
+ENV POSTGIS_VERSION 3.2.0+dfsg-1.pgdg90+1
 
 RUN apt-get update \
       && apt-cache showpkg postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR \
