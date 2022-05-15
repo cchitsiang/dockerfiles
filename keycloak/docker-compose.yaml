@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+    keycloak:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        #image: my_keycloak_image:6.0.1
+        restart: on-failure
+        command:
+            - "-b"
+            - "0.0.0.0"
+            - "-Dkeycloak.migration.action=import"
+            - "-Dkeycloak.migration.provider=dir"
+            - "-Dkeycloak.migration.dir=/config/"
+            - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
+        volumes:
+            - ./config:/config/
+        environment:
+            - KEYCLOAK_USER=admin
+            - KEYCLOAK_PASSWORD=admin
+            - DB_VENDOR=postgres
+            - DB_USER=admin
+            - DB_PASSWORD=password
+            - DB_ADDR=keycloak-db
+            - DB_PORT=5432
+            - DB_DATABASE=keycloakdb
+        ports:
+            - "8089:8080"
+            - "443:8443"
+        depends_on:
+            - keycloak-db
+
+    keycloak-db:
+        image: postgres:10
+        environment:
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: keycloakdb
+        volumes:
+            - ./data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+
+volumes:
+    pgdata:
