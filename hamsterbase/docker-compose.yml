@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    hamsterbase:
+        container_name: hamsterbase2
+        ports:
+            - '3001:3001'
+        volumes:
+            - '~/.hamsterbase/data:/app/data'
+        image: 'hamsterbase/hamsterbase:0.2.0'
