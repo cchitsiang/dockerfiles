@@ -11,8 +11,8 @@ services:
       - rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@app-rabbitmq
     environment:
       RABBITMQ_ERLANG_COOKIE: 6085e2412b6fa88647488c6a81c0cea0
-      RABBITMQ_DEFAULT_USER: rabbitmq
-      RABBITMQ_DEFAULT_PASS: rabbitmq
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
       RABBITMQ_DEFAULT_VHOST: /
 volumes:
   rabbitmq:
