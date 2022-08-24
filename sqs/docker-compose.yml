@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  sqs:
+    image: softwaremill/elasticmq-native
+    container_name: sqs
+    ports:
+      - "9324:9324"
+      - "9325:9325"
