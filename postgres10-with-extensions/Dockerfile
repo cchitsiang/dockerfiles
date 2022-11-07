@@ -24,11 +24,14 @@ RUN apt-get -q update && apt-get install -y --no-install-recommends ca-certifica
 # postgis
 # from: https://github.com/postgis/docker-postgis/blob/master/10-3.1/Dockerfile
 ENV POSTGIS_MAJOR 3
-ENV POSTGIS_VERSION 3.2.0+dfsg-1.pgdg110+1
+ENV POSTGIS_VERSION 3.2.3+dfsg-1.pgdg110+1
 
 RUN apt-get update \
       && apt-cache showpkg postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR \
       && apt-get install -y --no-install-recommends \
+           # ca-certificates: for accessing remote raster files;
+           #   fix: https://github.com/postgis/docker-postgis/issues/307
+           ca-certificates \
            postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR=$POSTGIS_VERSION \
            postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR-scripts \
       && rm -rf /var/lib/apt/lists/*
