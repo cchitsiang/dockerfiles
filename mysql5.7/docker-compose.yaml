@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  mysql:
+    platform: linux/amd64
+    container_name: mysql57
+    image: mysql:5.7
+    command: ["mysqld", "--default-authentication-plugin=mysql_native_password"]
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    entrypoint:
+      sh -c "
+        echo 'mysqld --default-authentication-plugin=mysql_native_password; CREATE DATABASE IF NOT EXISTS test; CREATE DATABASE IF NOT EXISTS test;' > /docker-entrypoint-initdb.d/init.sql;
+        /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+    ports:
+      - 3308:3306
+    volumes:
+      - ./db-data:/var/lib/mysql
