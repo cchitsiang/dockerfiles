@@ -1,13 +1,13 @@
 version: '3.1'
 services:
-  postgres:
-    container_name: postgres
+  postgres13:
+    container_name: postgres13
     build: .
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
     ports:
-      - 5432:5432
+      - 15432:5432
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./postgresql-data:/var/lib/postgresql/data
