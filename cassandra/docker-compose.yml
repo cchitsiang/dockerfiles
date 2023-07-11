@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: cassandra
+    image: cassandra
+    ports:
+      - 9042:9042
+    environment:
+      CASSANDRA_USE_ASTRA: "false" 
+      CASSANDRA_USER: "cassandra" 
+      CASSANDRA_PASSWORD: "cassandra" 
+      CASSANDRA_LOCAL_DC: "datacenter1" 
