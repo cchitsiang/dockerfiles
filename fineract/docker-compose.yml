@@ -1,0 +1,5 @@
+version: '3.3'
+services:
+    fineract:
+        platform: linux/amd64
+        image: apache/fineract
