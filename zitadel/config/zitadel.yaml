@@ -1,0 +1,36 @@
+
+Log:
+  Level: debug
+Metrics:
+  Type: none
+Tracing:
+  # Choose one in "otel", "google", "log" and "none"
+  Type: none
+ExternalPort: 9000 # ZITADEL_EXTERNAL_PORT
+ExternalSecure: false
+
+Database:
+  postgres:
+    Host: db
+    Port: 5432
+    Database: zitadel
+    User:
+      Username: zitadel # ZITADEL_DATABASE_POSTGRES_USER_USERNAME
+      Password: zitadel # ZITADEL_DATABASE_POSTGRES_USER_PASSWORD
+      SSL:
+        Mode: disable
+    Admin:
+      Username: postgres # ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME
+      Password: postgres # ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD
+      SSL:
+        Mode: disable
+
+SystemDefaults:
+  PasswordHasher:
+  # Set hasher configuration for user passwords.
+  # Passwords previously hashed with a different algorithm
+  # or cost are automatically re-hashed using this config,
+  # upon password validation or update.
+    Hasher:
+      Algorithm: "scrypt"
+      Cost: 12
