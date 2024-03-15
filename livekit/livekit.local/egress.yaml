@@ -1,0 +1,15 @@
+redis:
+    address: host.docker.internal:6379
+    username: ""
+    password: ""
+    db: 0
+    use_tls: false
+    sentinel_master_name: ""
+    sentinel_username: ""
+    sentinel_password: ""
+    sentinel_addresses: []
+    cluster_addresses: []
+    max_redirects: null
+api_key: APIiWXGfvH4CXVu
+api_secret: cfVu3xm4duPQGVWEmqyBasdtAT8ndchxo2KpjqylP3T
+ws_url: wss://livekit.local
