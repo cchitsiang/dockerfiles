@@ -1,0 +1,21 @@
+version: "3.4"
+
+networks:
+  grafana:
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    networks:
+      - grafana
+    ports:
+      - "8000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_BASIC_ENABLED=false
+    volumes:
+      - ./setup/dashboards:/var/lib/grafana/dashboards
+      - ./setup/grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+      - ./setup/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./.grafana:/etc/grafana/provisioning/
