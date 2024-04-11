@@ -19,3 +19,13 @@ services:
       - ./setup/grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
       - ./setup/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
       - ./.grafana:/etc/grafana/provisioning/
+
+  prometheus:
+    image: prom/prometheus:latest
+    networks:
+      - grafana
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./setup/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./.prometheus:/prometheus
