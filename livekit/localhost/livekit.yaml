@@ -1,6 +1,5 @@
 port: 7880
 prometheus_port: 7889
-environment: dev
 bind_addresses:
   - "0.0.0.0"
 rtc:
@@ -25,3 +24,7 @@ turn:
   external_tls: true
 keys:
   devkey: secret
+webhook:
+  api_key: devkey
+  urls:
+    - 'http://host.docker.internal:4000/v1/webhook'
