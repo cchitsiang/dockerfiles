@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  lobe-chat:
+    image: lobehub/lobe-chat
+    container_name: lobe-chat
+    restart: always
+    ports:
+      - '3210:3210'
+    env_file: 
+      - .env
+    environment:
+      OPENAI_PROXY_URL: https://api-proxy.com/v1
