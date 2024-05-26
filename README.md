@@ -7,3 +7,14 @@
 
 
 [1]: /traefik
+
+### Submodules added
+
+- [OpenIM](https://github.com/openimsdk/openim-docker) - Related guide: https://doc.rentsoft.cn/sdks/quickstart/flutter
+- [Bigcapital](https://github.com/bigcapitalhq/bigcapital) - Related guide: https://docs.bigcapital.app/deployment/docker 
+
+### Git submodules commands
+
+```bash
+git submodule update --init --recursive
+```

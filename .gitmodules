@@ -1,3 +1,6 @@
 [submodule "openim"]
 	path = openim
 	url = https://github.com/openimsdk/openim-docker
+[submodule "bigcapital"]
+	path = bigcapital
+	url = https://github.com/bigcapitalhq/bigcapital
