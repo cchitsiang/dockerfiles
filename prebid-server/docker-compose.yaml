@@ -1,0 +1,18 @@
+version: '3'
+services:
+  prebid:
+    image: prebid/prebid-server:v2.23.0
+    ports:
+      - "8000:8000"
+      - "6060:6060"
+    volumes:
+      - ./config:/etc/config
+      - ./sample/stored_request.json:/app/prebid-server/stored_requests/data/by_id/stored_imps/test-imp-id.json
+      - ./sample/stored_response.json:/app/prebid-server/stored_responses/data/by_id/stored_responses/test-bid-id.json
+
+  web:
+    image: nginx:alpine
+    ports:
+      - "4000:80"
+    volumes:
+      - ./sample/pbjs.html:/usr/share/nginx/html/index.html
