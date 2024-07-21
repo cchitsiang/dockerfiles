@@ -3,3 +3,5 @@ redis:
 api_key: devkey
 api_secret: secret
 ws_url: ws://host.docker.internal:7880
+logging:
+    level: debug

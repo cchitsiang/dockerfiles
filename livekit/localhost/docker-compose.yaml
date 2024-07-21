@@ -20,7 +20,7 @@ services:
     volumes:
       - ./ingress.yaml:/etc/ingress.yaml
   egress:
-    image: livekit/egress:v1.8
+    image: livekit/egress:v1.8.4
     environment:
       - EGRESS_CONFIG_FILE=/etc/egress.yaml
     volumes:

@@ -1,4 +1,5 @@
 port: 7880
+log_level: debug
 prometheus_port: 7889
 bind_addresses:
   - "0.0.0.0"
