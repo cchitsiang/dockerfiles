@@ -2,6 +2,7 @@ version: '3.3'
 services:
   db:
     container_name: mssql
+    platform: linux/amd64
     image: mcr.microsoft.com/mssql/server
     restart: unless-stopped
     volumes:
