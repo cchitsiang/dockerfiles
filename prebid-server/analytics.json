@@ -1,0 +1,222 @@
+{
+  "type": "/openrtb2/auction",
+  "Status": 200,
+  "Errors": [],
+  "Request": {
+    "id": "f206304a-5069-4db9-8e6b-fa3c759add29",
+    "imp": null,
+    "site": {
+      "domain": "localhost:4000",
+      "page": "http://localhost:4000/",
+      "publisher": { "id": "1", "domain": "localhost:4000" },
+      "ext": { "amp": 0 }
+    },
+    "device": {
+      "dnt": 0,
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0",
+      "sua": {
+        "browsers": [
+          { "brand": "Chromium", "version": ["128"] },
+          { "brand": "Not;A=Brand", "version": ["24"] },
+          { "brand": "Microsoft Edge", "version": ["128"] }
+        ],
+        "platform": { "brand": "macOS" },
+        "mobile": 0,
+        "source": 1
+      },
+      "h": 1424,
+      "w": 1408,
+      "language": "en"
+    },
+    "at": 1,
+    "tmax": 1000,
+    "source": { "tid": "84850ad8-ce1b-4b2a-aaf4-69e902e9949a" },
+    "ext": {
+      "prebid": {
+        "channel": { "name": "pbjs", "version": "v9.4.0" },
+        "server": { "externalurl": "localhost", "gvlid": 0, "datacenter": "" },
+        "targeting": {
+          "pricegranularity": {
+            "precision": 2,
+            "ranges": [{ "min": 0, "max": 20, "increment": 0.1 }]
+          },
+          "mediatypepricegranularity": {},
+          "includewinners": true,
+          "includebidderkeys": false
+        }
+      },
+      "tmaxmax": 3000
+    }
+  },
+  "Response": {
+    "id": "f206304a-5069-4db9-8e6b-fa3c759add29",
+    "seatbid": [
+      {
+        "bid": [
+          {
+            "id": "test-bid-id",
+            "impid": "test-div-1",
+            "price": 1,
+            "adm": "\u003cimg src =\"http://files.prebid.org/creatives/prebid300x250.png\" /\u003e",
+            "adomain": ["www.addomain.com"],
+            "iurl": "http://localhost11",
+            "crid": "creative111",
+            "w": 300,
+            "h": 250,
+            "mtype": 1,
+            "ext": {
+              "bidtype": 0,
+              "dspid": 6,
+              "origbidcpm": 1,
+              "origbidcur": "USD",
+              "prebid": {
+                "meta": { "adaptercode": "pubmatic" },
+                "targeting": {
+                  "hb_bidder": "pubmatic",
+                  "hb_pb": "1.00",
+                  "hb_size": "300x250"
+                },
+                "type": "banner",
+                "video": { "duration": 0, "primary_category": "" }
+              }
+            }
+          }
+        ],
+        "seat": "pubmatic"
+      }
+    ],
+    "cur": "USD",
+    "ext": {
+      "warnings": {
+        "general": [
+          { "code": 10002, "message": "debug turned off for account" }
+        ]
+      },
+      "responsetimemillis": { "pubmatic": 0 },
+      "tmaxrequest": 1000,
+      "prebid": { "auctiontimestamp": 1720183963698 }
+    }
+  },
+  "Account": {
+    "id": "1",
+    "disabled": false,
+    "cache_ttl": { "Banner": 0, "Video": 0, "Native": 0, "Audio": 0 },
+    "ccpa": { "channel_enabled": {} },
+    "gdpr": {
+      "channel_enabled": {},
+      "basic_enforcement_vendors": null,
+      "BasicEnforcementVendorsMap": null,
+      "purpose1": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose2": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose3": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose4": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose5": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose6": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose7": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose8": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose9": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "purpose10": {
+        "EnforceAlgoID": 0,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      },
+      "PurposeConfigs": null,
+      "purpose_one_treatment": { "Enabled": null, "AccessAllowed": null },
+      "special_feature1": {
+        "enforce": null,
+        "vendor_exceptions": null,
+        "VendorExceptionMap": null
+      }
+    },
+    "debug_allow": true,
+    "default_integration": "",
+    "cookie_sync": {
+      "default_limit": null,
+      "max_limit": null,
+      "default_coop_sync": null
+    },
+    "events": {
+      "enabled": false,
+      "default_url": "https://PBS_HOST/event?t=##PBS-EVENTTYPE##\u0026vtype=##PBS-VASTEVENT##\u0026b=##PBS-BIDID##\u0026f=i\u0026a=##PBS-ACCOUNTID##\u0026ts=##PBS-TIMESTAMP##\u0026bidder=##PBS-BIDDER##\u0026int=##PBS-INTEGRATION##\u0026mt=##PBS-MEDIATYPE##\u0026ch=##PBS-CHANNEL##\u0026aid=##PBS-AUCTIONID##\u0026l=##PBS-LINEID##"
+    },
+    "truncate_target_attr": null,
+    "alternatebiddercodes": null,
+    "hooks": { "modules": null, "execution_plan": { "endpoints": null } },
+    "price_floors": {
+      "enabled": false,
+      "enforce_floors_rate": 100,
+      "adjust_for_bid_adjustment": true,
+      "enforce_deal_floors": false,
+      "use_dynamic_data": false,
+      "max_rules": 100,
+      "max_schema_dims": 3,
+      "fetch": {
+        "enabled": false,
+        "url": "",
+        "timeout_ms": 3000,
+        "max_file_size_kb": 100,
+        "max_rules": 1000,
+        "max_age_sec": 86400,
+        "period_sec": 3600,
+        "max_schema_dims": 0,
+        "accountID": ""
+      }
+    },
+    "validations": {
+      "banner_creative_max_size": "",
+      "secure_markup": "",
+      "max_creative_width": 0,
+      "max_creative_height": 0
+    },
+    "default_bid_limit": 0,
+    "bidadjustments": null,
+    "privacy": {
+      "allowactivities": null,
+      "dsa": null,
+      "ipv6": { "anon_keep_bits": 56 },
+      "ipv4": { "anon_keep_bits": 24 },
+      "privacysandbox": {
+        "TopicsDomain": "",
+        "CookieDeprecation": { "Enabled": false, "TTLSec": 604800 }
+      }
+    }
+  },
+  "StartTime": "2024-07-05T12:52:43.698103173Z",
+  "HookExecutionOutcome": []
+}

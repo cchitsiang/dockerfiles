@@ -19,3 +19,7 @@ stored_responses:
   filesystem:
     enabled: true
     directorypath: /app/prebid-server/stored_responses/data/by_id
+
+analytics:
+  file:
+    filename: /app/prebid-server/analytics.log

@@ -9,6 +9,7 @@ services:
       - ./config:/etc/config
       - ./sample/stored_request.json:/app/prebid-server/stored_requests/data/by_id/stored_imps/test-imp-id.json
       - ./sample/stored_response.json:/app/prebid-server/stored_responses/data/by_id/stored_responses/test-bid-id.json
+      - ./analytics.log:/app/prebid-server/analytics.log-20240705:rw
 
   web:
     image: nginx:alpine
