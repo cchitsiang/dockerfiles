@@ -1,71 +1,46 @@
 version: '3.8'
 
 services:
-  zookeeper:
-    image: bitnami/zookeeper:3.7
-    ports: ["2181:2181"]
-    environment:
-      ALLOW_ANONYMOUS_LOGIN: "yes"
-
   kafka:
-    image: bitnami/kafka:3
-    ports: ["9090:9090"]
-    environment:
-      KAFKA_BROKER_ID: 0
-      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
-      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CFG_LISTENERS: EXT://:9092,INT://:29092
-      KAFKA_CFG_ADVERTISED_LISTENERS: EXT://localhost:9092,INT://kafka:29092
-      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: EXT:PLAINTEXT,INT:PLAINTEXT
-      ALLOW_PLAINTEXT_LISTENER: "yes"
-      KAFKA_INTER_BROKER_LISTENER_NAME: INT
-    depends_on:
-      - "zookeeper"
-  akhq:
-    image: tchiotludo/akhq:0.19.0
+    image: confluentinc/cp-kafka:7.5.1
+    container_name: kafka
     ports:
-      - 9000:8080
+      - "9092:9092"
+      - "9094:9094"
     environment:
-      AKHQ_CONFIGURATION: |
-        akhq:
-          server:
-            access-log:
-              enabled: true
-              name: org.akhq.log.access
-              format: "[Date: {}] [Duration: {} ms] [Url: {} {}] [Status: {}] [Ip: {}] [User: {}]"
-          connections:
-            xendit-plaintext-cluster: # url friendly name for the cluster (letter, number, _, -, ... dot are not allowed here)
-              properties: # standard kafka properties (optional)
-                bootstrap.servers: "kafka:29092"
-              ui-options:
-                topic:
-                  default-view: ALL # default list view (ALL, HIDE_INTERNAL, HIDE_INTERNAL_STREAM, HIDE_STREAM). Overrides default
-                  skip-consumer-groups: false # Skip loading consumer group information when showing topics. Overrides default
-                  skip-last-record: true # Skip loading last record date information when showing topics.  Overrides default
-                topic-data:
-                  sort: NEWEST # default sort order (OLDEST, NEWEST) (default: OLDEST).  Overrides default
-          pagination:
-            page-size: 25
-            threads: 16
-          # Topic display data options (optional)
-          topic-data:
-            size: 50
-            poll-timeout: 1000
-          # Topic list display options (optional)
-          topic:
-            retention: 172800000
-            partition: 3
-            replication: 1
-            skip-consumer-groups: false
-            skip-last-record: false
-            retry:
-              topic-exists:
-                delay: "3s"
-          # Ui Global Options (optional)
-          ui-options:
-            topic:
-              default-view: ALL
-              skip-consumer-groups: false
-              skip-last-record: true
-            topic-data:
-              sort: NEWEST
+      # KRaft settings
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka:29093'
+      # Listeners
+      KAFKA_LISTENERS: 'PLAINTEXT://kafka:29092,CONTROLLER://kafka:29093,EXTERNAL://0.0.0.0:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,EXTERNAL://localhost:9092'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      # Other settings
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics.sh --bootstrap-server localhost:9092 --list"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "9000:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+    depends_on:
+      - kafka
+
+volumes:
+  kafka_data:
