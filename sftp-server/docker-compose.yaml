@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  sftp-server:
+    image: atmoz/sftp:latest
+    container_name: sftp-server
+    restart: unless-stopped
+    ports:
+      - "2222:22"
+    volumes:
+      - ./sftp-data:/home
+    environment:
+      - SFTP_USERS=sftpuser:password:1000:1000
+    command: ["sftpuser:password:1000:1000"]
+    networks:
+      - sftp-network
+
+networks:
+  sftp-network:
+    driver: bridge
+
+volumes:
+  sftp-data:
+    driver: local
